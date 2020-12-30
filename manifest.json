@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "TidyTabs",
+    "icons": {"16": "16_TidyTabsIcon.png", "48": "48_TidyTabsIcon.png", "128": "128_TidyTabsIcon.png"},
+    "browser_action": {
+      "default_icon": "48_TidyTabsIcon.png",
+      "icons": {"16": "16_TidyTabsIcon.png", "48": "48_TidyTabsIcon.png", "128": "128_TidyTabsIcon.png"}
+    },
+    "version": "0.0.1",
+    "permissions" : ["tabs"],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+      }
+}
