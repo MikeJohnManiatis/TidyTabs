@@ -7,12 +7,12 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
 function orderTabs() {
   chrome.tabs.query({}, function (tabs) {
       var mapping_array = new Array();
-      mapping_array = tabs.sort(function(a,b) {return (getTrimmedUrl(a.url) > getTrimmedUrl(b.url))
-         ? 1 : ((getTrimmedUrl(b.url) > getTrimmedUrl(a.url)) ? -1 : 0);} );
+      mapping_array = tabs.sort(function(a,b) {urlsComparator(a,b)});
       moveChromeTabs(mapping_array, tabs);
   });
 }
 
+//TODO: Refactor this method
 function moveChromeTabs(mapping_array, tabs) {
   for(i=0; i<mapping_array.length; i++){
     for(j=0; j<tabs.length; j++){
@@ -23,12 +23,20 @@ function moveChromeTabs(mapping_array, tabs) {
   }
 }
 
-function getTrimmedUrl(url) {
-  var trimmedUrl = url
-    .replace("https://" , "")
-    .replace("http://" , "")
-    .replace("www." , "");
 
-  console.log(trimmedUrl);
-  return trimmedUrl;
+function urlsComparator(a,b) {
+  a = getTrimmedUrl(a.url);
+  b = getTrimmedUrl(b.url);
+  return  a > b ? 1 : (b > a ? -1 : 0)
 }
+
+function getTrimmedUrl(url) {
+    var trimmedUrl = url
+      .replace("https://" , "")
+      .replace("http://" , "")
+      .replace("www." , "");
+  
+    console.log(trimmedUrl);
+    return trimmedUrl;
+}
+  
